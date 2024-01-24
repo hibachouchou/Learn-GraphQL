@@ -1,9 +1,9 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-//db
-import db from './db'
+// data
+import db from './_db.js'
 //types
-import { typeDefs } from './schema';
+import { typeDefs } from './schema.js';
 //resolvers
 const resolvers={
     Query:{
@@ -29,4 +29,4 @@ const {url} = await startStandaloneServer(server,{
     listen :{ port:4000}
 })
 
-console.log('Server ready at port ',4000)
+console.log(`Server ready at: ${url}`)
