@@ -15,7 +15,37 @@ const resolvers={
         },
         authors(){
             return db.authors
+        },
+        //Query variables
+        review(_,args){
+            //args.id
+            return db.reviews.find((review)=>review.id ===args.id)
+        },
+        game(_,args){
+            return db.games.find((game)=>game.id===args.id)
+        },
+        author(_,args){
+            return db.authors.find((author)=>author.id===args.id)
         }
+    },
+    //Related Data
+    Game:{
+        reviews(parent){
+            return db.reviews.filter((reviews)=>reviews.game_id===parent.id)
+        }
+    },
+    Author:{
+        reviews(parent){
+            return db.reviews.filter((reviews)=>reviews.author_id===parent.id)
+        }
+    },
+    Review:{
+author(parent){
+    return db.authors.find(author=>author.id===parent.author_id)
+},
+game(parent){
+    return db.games.find(game=>game.id===parent.game_id)
+}
     }
 }
 //server setup
