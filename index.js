@@ -46,6 +46,55 @@ author(parent){
 game(parent){
     return db.games.find(game=>game.id===parent.game_id)
 }
+    },
+    Mutation:{
+        //delete
+        deleteGame(_,args){
+        db.games=db.games.filter((game)=>game.id!== args.id)
+        return db.games
+        },
+        // deleteAuthor(_,args){
+        // db.authors=db.authors.filter(author=>author.id!==args.id)
+        // return db.authors
+        // },
+        // deleteReview(_,args){
+        // db.reviews=db.reviews.filter(review=>review.id!==args.id)
+        // return db.reviews
+        // },
+        //add
+        addGame(_,args){
+           let game={
+            ...args.game,
+            id:Math.floor(Math.random()*10000).toString()
+           } 
+           db.games.push(game)
+           return game
+        },
+        // addAuthor(_,args){
+        //     let author={
+        //      ...args.author,
+        //      id:Math.floor(Math.random()*10000).toString()
+        //     } 
+        //     db.authors.push(author)
+        //     return author
+        //  },
+        //  addReview(_,args){
+        //     let review={
+        //      ...args.review,
+        //      id:Math.floor(Math.random()*10000).toString()
+        //     } 
+        //     db.reviews.push(review)
+        //     return review
+        //  }
+        updateGame(_,args){
+          db.games=db.games.map((game)=>{
+          if (game.id ===args.id){
+          return {...game,...args.edits}
+          }
+          return game
+})
+return db.games.find(game => game.id===args.id)
+        }
     }
 }
 //server setup
